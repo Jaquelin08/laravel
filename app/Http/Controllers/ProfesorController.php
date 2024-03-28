@@ -7,73 +7,88 @@ use App\Models\Profesor;
 use App\Models\Puesto;
 use Illuminate\Http\Request;
 
-
 class ProfesorController extends Controller
 {
-    public function view(Request $req)
-    {
+    public function view(Request $req){
         if ($req->id) {
             $profesor = Profesor::find($req->id);
+            $profesores = Profesor::select('profesores.*', 'division.nombre as nombre_division', 'puestos.nombre as nombre_puesto')
+        ->join('division', 'profesores.divisionid', '=', 'division.id')
+        ->join('puestos', 'profesores.puestoid', '=', 'puestos.id')
+        ->get();
         } else {
             $profesor = new Profesor();
+            $profesores = Division::select('id as divisionid', 'nombre as nombre_division')
+            ->get();
         }
-
-        return view('profesor', compact('profesor'));
+        $divisiones = Division::select('id as divisionid', 'nombre as nombre_division')
+        ->get();
+        $puesto = Puesto::select('id as puestoid', 'nombre as nombre_puesto')
+        ->get();
+        return view('/profesor', compact('profesor', 'profesores', 'divisiones', 'puesto'));
     }
 
-    public function index()
-    {
-        $profesores = Profesor::all();
-        return view('profesores', compact('profesores'));
-    }
-
-    public function create()
-    {
-        $divisiones = Division::all();
-        $puestos = Puesto::all();
-        $profesor = new Profesor(); // Creamos un nuevo objeto profesor, puede ser vacío o con valores predeterminados según tus necesidades
-
-        return view('profesor', compact('profesor', 'divisiones', 'puestos'));
-    }
-
-    public function edit($id)
-    {
-        $profesor = Profesor::find($id);
-        $divisiones = Division::all();
-        $puestos = Puesto::all();
-
-        return view('profesor', compact('profesor', 'divisiones','puestos'));
-    }
-
-    public function store(Request $req)
-    {
-        // Verifica si se proporcionó un ID en la solicitud
-        if ($req->id) {
-            // Estamos en modo de edición, así que actualizamos el profesor existente
+    public function store(Request $req){    
+        if ($req->id != 0) {
             $profesor = Profesor::find($req->id);
         } else {
-            // Estamos en modo de creación, así que creamos un nuevo profesor
             $profesor = new Profesor();
         }
 
         $profesor->numero_empleado = $req->numero_empleado;
         $profesor->nombre = $req->nombre;
         $profesor->numero_horas = $req->numero_horas;
-        $profesor->puesto_id = $req->puesto_id;
-        $profesor->division_id = $req->division_id; // Ajusta esto según tus necesidades
+        $profesor->divisionid = $req->divisionid;
+        $profesor->puestoid = $req->puestoid;
         $profesor->inicio_contrato = $req->inicio_contrato;
         $profesor->fin_contrato = $req->fin_contrato;
-
         $profesor->save();
-
-        return redirect()->route('profesores.index')->with('success', 'Profesor creado exitosamente');
+        return redirect()->route('profesores');
     }
 
-    public function delete(Request $req)
-    {
+    public function storeAPI(Request $req){    
+        if ($req->id != 0) {
+            $profesor = Profesor::find($req->id);
+        } else {
+            $profesor = new Profesor();
+        }
+
+        $profesor->numero_empleado = $req->numero_empleado;
+        $profesor->nombre = $req->nombre;
+        $profesor->numero_horas = $req->numero_horas;
+        $profesor->divisionid = $req->divisionid;
+        $profesor->puestoid = $req->puestoid;
+        $profesor->inicio_contrato = $req->inicio_contrato;
+        $profesor->fin_contrato = $req->fin_contrato;
+        $profesor->save();
+        return "Profesor guardado correctamente";;
+    }
+    
+    public function delete(Request $req){
         $profesor = Profesor::find($req->id);
         $profesor->delete();
-
-        return redirect()->route('profesores.index')->with('success', 'Profesor eliminado exitosamente');
+        return redirect()->route('profesores');
+    }
+    
+    public function deleteAPI(Request $req){
+        $profesor = Profesor::find($req->id);
+        $profesor->delete();
+        return "Profesor eliminado correctamente";;
+    }
+    
+    public function index(){
+        $profesores = Profesor::select('profesores.*', 'division.nombre as nombre_division', 'puestos.nombre as nombre_puesto')
+        ->join('division', 'profesores.divisionid', '=', 'division.id')
+        ->join('puestos', 'profesores.puestoid', '=', 'puestos.id')
+        ->get();
+        return view('/profesores', compact('profesores'));
+    }
+    
+    public function list(){
+        $profesores = Profesor::select('profesores.*', 'division.nombre as nombre_division', 'puestos.nombre as nombre_puesto')
+        ->join('division', 'profesores.divisionid', '=', 'division.id')
+        ->join('puestos', 'profesores.puestoid', '=', 'puestos.id')
+        ->get();
+        return json_encode($profesores);
     }
 }

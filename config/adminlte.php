@@ -290,51 +290,57 @@ return [
     */
 
     'menu' => [
-        ['header' => 'account_settings'],
+        // Navbar items:
+        ['header' => 'Opciones'],
         [
             'text'    => 'Divisiones',
             'icon'    => 'fas fa-fw fa-share',
             'submenu' => [
                 [
                     'text' => 'Lista',
-                    'route'  => 'divisiones',
+                    // 'url'  => '/divisiones',
+                    'route' => 'divisiones',
                 ],
                 [
                     'text' => 'Nueva',
-                    'route'  => 'nueva.division',
-                ]
+                    'route' => 'nueva.division',
+                ],
             ],
         ],
         [
             'text'    => 'Profesores',
-            'icon'    => 'fas fa-fw fa-users',
+            'icon'    => 'fas fa-fw fa-share',
             'submenu' => [
                 [
-                    'text' => 'Lista de Profesores',
-                    'route'  => 'profesores.index',
+                    'text' => 'Lista',
+                    'route' => 'profesores',
                 ],
                 [
-                    'text' => 'Nuevo Profesor',
-                    'route'  => 'profesores.create',
+                    'text' => 'Nuevo',
+                    'route' => 'nuevo.profesor',
                 ],
+                
             ],
         ],
         [
             'text'    => 'Puestos',
-            'icon'    => 'fas fa-fw fa-users',
+            'icon'    => 'fas fa-fw fa-share',
             'submenu' => [
                 [
-                    'text' => 'Lista de Puestos',
-                    'route'  => 'puestos',
+                    'text' => 'Lista',
+                    'route' => 'puestos',
                 ],
                 [
-                    'text' => 'Nuevo Puesto',
-                    'route'  => 'nuevo.puesto',
+                    'text' => 'Nuevo',
+                    'route' => 'nuevo.puesto',
                 ],
             ],
         ],
+        [
+            'text' => 'Log',
+            'route' => 'logs',
+        ],
     ],
-    
 
     /*
     |--------------------------------------------------------------------------
@@ -376,17 +382,17 @@ return [
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js',
                 ],
                 [
                     'type' => 'js',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js',
                 ],
                 [
                     'type' => 'css',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css',
                 ],
             ],
@@ -396,12 +402,12 @@ return [
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js',
                 ],
                 [
                     'type' => 'css',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css',
                 ],
             ],
@@ -421,7 +427,7 @@ return [
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
                 ],
             ],

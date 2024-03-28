@@ -1,10 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DivisionController;
 use App\Http\Controllers\ProfesorController;
 use App\Http\Controllers\PuestoController;
+use App\Models\Profesor;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,23 +24,23 @@ Route::get('/', function () {
 
 Auth::routes();
 
-//Divisiones
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/division/nueva', [DivisionController::class, 'view'])->name('nueva.division');
-Route::post('/division/guardar', [DivisionController::class, 'store'])->name('guardar.division');
-Route::get('/divisiones', [DivisionController::class, 'index'])->name('divisiones');
-Route::get('/division/delete', [DivisionController::class, 'delete'])->name('delete.division');
 
-//Profesores
-Route::get('/profesores/nuevo', [ProfesorController::class, 'create'])->name('profesores.create');
-Route::post('/profesores/guardar', [ProfesorController::class, 'store'])->name('profesores.store');
-Route::get('/profesores/{id}/editar', [ProfesorController::class, 'edit'])->name('profesores.edit');
-Route::get('/profesores/{id}/eliminar', [ProfesorController::class, 'delete'])->name('profesores.delete');
-Route::get('/profesores/{id}', [ProfesorController::class, 'view'])->name('profesores.view');
-Route::get('/profesores', [ProfesorController::class, 'index'])->name('profesores.index');
+Auth::routes();
 
-//Puesto
-Route::get('/puesto/nuevo', [PuestoController::class, 'view'])->name('nuevo.puesto');
-Route::post('/puesto/guardar', [PuestoController::class, 'store'])->name('guardar.puesto');
-Route::get('/puestos', [PuestoController::class, 'index'])->name('puestos');
-Route::get('/puesto/delete', [PuestoController::class, 'delete'])->name('delete.puesto');
+Route::get('/division/nueva', [DivisionController::class, "view"])->name('nueva.division');
+Route::post('/division/guardar', [DivisionController::class, "store"])->name('guardar.division');
+Route::get('/division/eliminar', [DivisionController::class, "delete"])->name('eliminar.division');
+Route::get('/divisiones', [DivisionController::class, "index"])->name('divisiones');
+
+Route::get('/profesor/nuevo', [ProfesorController::class, "view"])->name('nuevo.profesor');
+Route::post('/profesor/guardar', [ProfesorController::class, "store"])->name('guardar.profesor');
+Route::get('/profesor/eliminar', [ProfesorController::class, "delete"])->name('eliminar.profesor');
+Route::get('/profesores', [ProfesorController::class, "index"])->name('profesores');
+
+Route::get('/puesto/nuevo', [PuestoController::class, "view"])->name('nuevo.puesto');
+Route::post('/puesto/guardar', [PuestoController::class, "store"])->name('guardar.puesto');
+Route::get('/puesto/eliminar', [PuestoController::class, "delete"])->name('eliminar.puesto');
+Route::get('/puestos', [PuestoController::class, "index"])->name('puestos');
+
+Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index'])->name('logs');

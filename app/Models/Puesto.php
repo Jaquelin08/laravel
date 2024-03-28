@@ -8,5 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Puesto extends Model
 {
     use HasFactory;
-    protected $table = "puesto";
+
+    protected $table = "puestos";
 }

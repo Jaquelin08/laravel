@@ -1,22 +1,16 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
-
-@section('content_header')
-    <h1>Formulario de División</h1>
-@stop
-
 @section('content')
     <div class="box">
-        <div class="box-body">
-            <form action="{{ route('guardar.division') }}" method="POST">
-                @csrf
-                <input type="hidden" name="id" value="{{$division->id}}">
-                <div class="form-group">
-                    <label for="codigo">Código</label>
+        <div class="box_body">
+            <form action="{{ route ('guardar.division')}}" method="POST">
+                    @csrf
+                <div class="form-box">
+                    <input type="hidden" name="id" value="{{$division->id}}">
+                    <label for="codigo">Código:</label>
                     <input type="text" name="codigo" value="{{$division->codigo}}" class="form-control" required>
                 </div>
-                <div class="form-group">
+                <div class="form-box">
                     <label for="nombre">Nombre:</label>
                     <input type="text" name="nombre" value="{{$division->nombre}}" class="form-control" required>
                 </div>
@@ -24,4 +18,12 @@
             </form>
         </div>
     </div>
+@stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop
+
+@section('js')
+    <script> console.log('Hi!'); </script>
 @stop

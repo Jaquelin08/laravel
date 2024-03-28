@@ -9,8 +9,8 @@
             <table class="table-data" class="table table-bprdered">
                 <thead>
                     <tr>
-                        <th>Código</th>
-                        <th>Nombre</th>
+                        <th>fecha</th>
+                        <th></th>
                         <th>Opciones</th>
                     </tr>
                 </thead>
